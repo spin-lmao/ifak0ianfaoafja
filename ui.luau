@@ -1,3 +1,23 @@
+--[[
+    		Compkiller Interface
+
+    Author: 4lpaca
+    License: MIT
+    Github: https://github.com/4lpaca-pin/CompKiller
+    Original: compkiller.net
+
+        Version: 2.6.1-mela
+    - Improved Performance Mode
+    	Compkiller:OptimizeMode(< boolean >)
+  	- Added Auto Color Logo
+		Compkiller:CustomIconHighlight()
+
+	Melatonin fork (freeze / FPS fixes for busy games like Rivals):
+	- PerformanceMode defaults ON: skips acrylic blur, floating keybind list,
+	  and per-frame Tween spam (properties set directly).
+	- Hot loops throttle / early-out when the menu is closed.
+	- Per-keybind polling slowed + only updates on state change.
+--]]
 
 --- Export Types ---
 
