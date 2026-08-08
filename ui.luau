@@ -27,6 +27,34 @@ local executor = (
     'unknown'
 )
 
+-- Embedded Signal (replaces dead HttpGet to drillygzzly/Other/1414 which returned nil
+-- and crashed at library.signal.new — "attempt to index nil with 'new'").
+local SignalLib = {}
+do
+    local Signal = {}
+    Signal.__index = Signal
+
+    function Signal.new()
+        local self = setmetatable({}, Signal)
+        self._event = Instance.new('BindableEvent')
+        return self
+    end
+
+    function Signal:Connect(fn)
+        return self._event.Event:Connect(fn)
+    end
+
+    function Signal:Fire(...)
+        self._event:Fire(...)
+    end
+
+    function Signal:Wait()
+        return self._event.Event:Wait()
+    end
+
+    SignalLib.new = Signal.new
+end
+
 local library = {
     windows = {};
     indicators = {};
@@ -59,7 +87,7 @@ local library = {
         ['colortrans'] = 'https://raw.githubusercontent.com/portallol/luna/main/modules/trans.png';
     };
     numberStrings = {['Zero'] = 0, ['One'] = 1, ['Two'] = 2, ['Three'] = 3, ['Four'] = 4, ['Five'] = 5, ['Six'] = 6, ['Seven'] = 7, ['Eight'] = 8, ['Nine'] = 9};
-    signal = loadstring(game:HttpGet('https://raw.githubusercontent.com/drillygzzly/Other/main/1414'))();
+    signal = SignalLib;
     open = false;
     opening = false;
     hasInit = false;
