@@ -2498,21 +2498,6 @@ function Compkiller:_CreateBlock(Signal)
 	return rep;
 end;
 
--- Collapse an option out of the section list (used when a parent feature is off).
-function Compkiller:_UserVisible(root, fullSize)
-	local shown = true
-	return function(_, bool)
-		shown = bool ~= false
-		if shown then
-			root.Visible = true
-			root.Size = fullSize
-		else
-			root.Visible = false
-			root.Size = UDim2.new(fullSize.X.Scale, fullSize.X.Offset, 0, 0)
-		end
-	end
-end
-
 Compkiller.Hash = function(str: string)
 	if typeof(str) ~= "string" then
 		return "ck-unknow";
@@ -4747,8 +4732,6 @@ function Compkiller:_LoadElement(Parent: Frame , EnabledLine: boolean , Signal ,
 			return Block:GetText();
 		end;
 
-		Args.SetVisible = Compkiller:_UserVisible(Block.Root, UDim2.new(1, -1, 0, 30));
-
 		if Config.Flag then
 			Compkiller.Flags[Config.Flag] = Args;
 		end;
@@ -4853,8 +4836,6 @@ function Compkiller:_LoadElement(Parent: Frame , EnabledLine: boolean , Signal ,
 			return (typeof(Config.Default) == "string" and Config.Default) or Config.Default.Name;
 		end;
 
-		Args.SetVisible = Compkiller:_UserVisible(Block.Root, UDim2.new(1, -1, 0, 30));
-
 		if Config.Flag then
 			Compkiller.Flags[Config.Flag] = Args;
 		end;
@@ -4934,8 +4915,6 @@ function Compkiller:_LoadElement(Parent: Frame , EnabledLine: boolean , Signal ,
 				}
 			};
 		end;
-
-		Args.SetVisible = Compkiller:_UserVisible(Block.Root, UDim2.new(1, -1, 0, 30));
 
 		if Config.Flag then
 			Compkiller.Flags[Config.Flag] = Args;
@@ -5097,8 +5076,6 @@ function Compkiller:_LoadElement(Parent: Frame , EnabledLine: boolean , Signal ,
 		function Args:GetText()
 			return TextLabel.Text;
 		end;
-
-		Args.SetVisible = Compkiller:_UserVisible(Button, UDim2.new(1, -1, 0, 30));
 
 		return Args;
 	end;
@@ -5441,8 +5418,6 @@ function Compkiller:_LoadElement(Parent: Frame , EnabledLine: boolean , Signal ,
 
 			Args.AutoKeybind = AutoKeybind;
 		end;
-
-		Args.SetVisible = Compkiller:_UserVisible(Slider, UDim2.new(1, -1, 0, 45));
 
 		return Args;
 	end;
@@ -5830,8 +5805,6 @@ function Compkiller:_LoadElement(Parent: Frame , EnabledLine: boolean , Signal ,
 			return Config.Default;
 		end;
 
-		Args.SetVisible = Compkiller:_UserVisible(TextBox, UDim2.new(1, -1, 0, 30));
-
 		if Config.Flag then
 			Compkiller.Flags[Config.Flag] = Args;
 		end;
@@ -6146,8 +6119,6 @@ function Compkiller:_LoadElement(Parent: Frame , EnabledLine: boolean , Signal ,
 		function Args:GetValue()
 			return Config.Default;
 		end;
-
-		Args.SetVisible = Compkiller:_UserVisible(Dropdown, UDim2.new(1, -1, 0, 55));
 
 		if Config.Flag then
 			Compkiller.Flags[Config.Flag] = Args;
